@@ -38,22 +38,22 @@ function Cart() {
         ) : (
 
           <div>
-            <div className="flex flex-wrap justify-center mx-auto px-32 xxl:px-96 py-2.5">
+            <div className="flex flex-wrap justify-center mx-auto px-96 xxl:px-96 py-2.5">
               {cart.cartItems?.map(cartItem => (
-                <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-6" key={cartItem.idDrink}>
+                <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-12" key={cartItem.idDrink}>
                   <div className="bg-primary-secondary p-4 rounded-lg shadow-md h-full">
                     <div className='flex justify-between mb-4'>
                       <h1 className='font-bold text-3xl '>{cartItem.strDrink}</h1>
-                      <div className="cartPrice font-bold text-2xl">
+                      <div className=" font-bold text-2xl">
                         {parseInt(cartItem.idDrink.substring(0, 2))} $ usd
                       </div>
                     </div>
-                    <img src={cartItem.strDrinkThumb} alt={cartItem.strDrink} className="dimg" />
-                  <div className="flex justify-between items-center mt-4 mb-4 py-2 px-4  bg-primary-darktext rounded text-3xl text-white">
-                    <button className='bg-primary-darktext  px-4 font-bold  ' onClick={() => handleDecreaseCart(cartItem)}>-</button> 
-                    <div className="font-bold  underline-offset-4 ">{cartItem.cartQuantity}</div>
-                    <button className='bg-primary-darktext  px-4  font-bold  ' onClick={() =>handleIncreaseCart(cartItem)}>+</button>
-                  </div>
+                    <img src={cartItem.strDrinkThumb} alt={cartItem.strDrink} className="p-2 rounded" />
+                    <div className="flex justify-between items-center mt-4 mb-4 py-2 px-4  bg-primary-darktext rounded text-3xl text-white">
+                      <button className='bg-primary-darktext  px-4 font-bold  ' onClick={() => handleDecreaseCart(cartItem)}>-</button> 
+                      <div className="font-bold  underline-offset-4 ">{cartItem.cartQuantity}</div>
+                      <button className='bg-primary-darktext  px-4  font-bold  ' onClick={() =>handleIncreaseCart(cartItem)}>+</button>
+                    </div>
                     <div className='flex justify-between items-center p-2  '>
                       <span className='font-bold mr-2'>Total for item
                       <div className="font-bold underline text-lg mr-36 ">
@@ -68,9 +68,9 @@ function Cart() {
             </div>
   
             <div className='bg-white m-32 px-32 py-10 rounded-lg '>
-                <div className='text-lg font-bold  flex justify-start items-center'>
+                <div className='text-2xl font-bold  flex justify-start items-center'>
                   <span className='mr-4 font-black flex flex-wrap' >Total cost </span>
-                    <span className='font-semibold text-xl underline'>
+                    <span className='font-semibold text-2xl underline'>
                       {cart.cartItems.reduce(
                         (total, cartItem) =>
                           total +
@@ -81,16 +81,16 @@ function Cart() {
                 </div>
                 
               
-              <div className='flex items-center justify-between mt-4'>
+              <div className='flex items-center justify-end mt-4 font-bold text-xl'>
                 <div className=' mr-2 '>
-                  <button className='bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md' onClick={() => handleClearCart()} > Remove all</button>
+                  <button className='bg-red-500 hover:bg-red-600 text-white py-4 px-6 rounded-md' onClick={() => handleClearCart()} > Remove all</button>
                 </div>
 
                 
-                <div className="bg-primary-darktext  text-white py-2 px-4 rounded-md">
+                <div className="bg-primary-darktext  text-white py-4 px-6 rounded-md ">
                   <Link to="/"><span>← Continue to fill up</span></Link>
                 </div>
-                <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md ml-10'>Check out</button>
+                
               </div>
             </div>
           </div>

@@ -27,15 +27,15 @@ function Shop  ()  {
   
 
   return (
-    <div className="flex flex-wrap justify-center mx-auto px-32 xxl:px-96 py-2.5">
+    <div className="flex flex-wrap justify-center mx-auto px-96 xxl:px-96 py-2.5">
       {drinks.map((drink) => (
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-6" key={drink.idDrink}>
-          <div className="bg-primary-secondary p-4 rounded-lg shadow-md h-auto">
+        <div className="w-full h-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-12" key={drink.idDrink}>
+          <div className="bg-primary-secondary p-4 rounded-lg shadow-md h-4/5">
             <div className="mb-2">
               <h2 className=" text-3xl font-bold">{drink.strDrink}</h2>
             </div>
             <div className="mb-4">
-              <img src={drink.strDrinkThumb} alt={drink.strDrink} className="w-full h-96 object-cover" />
+              <img src={drink.strDrinkThumb} alt={drink.strDrink} className="p-2" />
             </div>
             
             <div className="mb-2">
