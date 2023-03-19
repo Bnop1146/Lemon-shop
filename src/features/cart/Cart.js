@@ -1,32 +1,105 @@
-import React, { useState } from "react";
-import './styles.css'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart, clearCart, decreaseCart, removeFromCart } from './cartSlice'
+import './cart.css'
+
+function Cart() {
+    const cart = useSelector(state => state.cart)
+    const dispatch = useDispatch()
+    const handleRemoveFromCart = (cartItem) => {
+        dispatch(removeFromCart({ id: cartItem.idDrink }));
+    };
+
+    const handleDecreaseCart = (cartItem) => {
+        dispatch(decreaseCart(cartItem))
+    }
+
+    const handleIncreaseCart = (cartItem) => {
+        dispatch(addToCart(cartItem));
+    }
+
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    }
+  
+    return (
+      <div className="">
+        <h1 className='font-bold flex flex-wrap justify-center mt-24 mb-16 text-6xl '>Shopping cart</h1>
+        {cart.cartItems.length === 0 ? (
+          <div className="flex justify-center mt-32">
+          <Link to="/" className='block text-white text-center bg-primary-secondary rounded hover:bg-primary-darktext '>
+            <div className=' p-10 rounded-lg' >
+              <h1 className='text-white text-center font-bold text-3xl mb-4'>Your cart is empty</h1>
+              <span className='text-white text-center font-bold text-2xl mb-4'>Start shopping</span>
+            </div>
+          </Link>
+          </div>
+        ) : (
+
+          <div>
+            <div className="flex flex-wrap justify-center mx-auto px-32 xxl:px-96 py-2.5">
+              {cart.cartItems?.map(cartItem => (
+                <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-6" key={cartItem.idDrink}>
+                  <div className="bg-primary-secondary p-4 rounded-lg shadow-md h-full">
+                    <div className='flex justify-between mb-4'>
+                      <h1 className='font-bold text-3xl '>{cartItem.strDrink}</h1>
+                      <div className="cartPrice font-bold text-2xl">
+                        {parseInt(cartItem.idDrink.substring(0, 2))} $ usd
+                      </div>
+                    </div>
+                    <img src={cartItem.strDrinkThumb} alt={cartItem.strDrink} className="dimg" />
+                  <div className="flex justify-between items-center mt-4 mb-4 py-2 px-4  bg-primary-darktext rounded text-3xl text-white">
+                    <button className='bg-primary-darktext  px-4 font-bold  ' onClick={() => handleDecreaseCart(cartItem)}>-</button> 
+                    <div className="font-bold  underline-offset-4 ">{cartItem.cartQuantity}</div>
+                    <button className='bg-primary-darktext  px-4  font-bold  ' onClick={() =>handleIncreaseCart(cartItem)}>+</button>
+                  </div>
+                    <div className='flex justify-between items-center p-2  '>
+                      <span className='font-bold mr-2'>Total for item
+                      <div className="font-bold underline text-lg mr-36 ">
+                        {parseInt(cartItem.idDrink.substring(0, 2)) * cartItem.cartQuantity} $
+                      </div>
+                      </span>
+                      <button className='bg-red-500 text-white p-4 rounded font-extrabold ' onClick={() => handleRemoveFromCart(cartItem)}> Remove all items </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+  
+            <div className='bg-white m-32 px-32 py-10 rounded-lg '>
+                <div className='text-lg font-bold  flex justify-start items-center'>
+                  <span className='mr-4 font-black flex flex-wrap' >Total cost </span>
+                    <span className='font-semibold text-xl underline'>
+                      {cart.cartItems.reduce(
+                        (total, cartItem) =>
+                          total +
+                          parseFloat(cartItem.idDrink.substring(0, 2)) *
+                          cartItem.cartQuantity,
+                        0).toFixed(0)} $ usd
+                    </span>
+                </div>
+                
+              
+              <div className='flex items-center justify-between mt-4'>
+                <div className=' mr-2 '>
+                  <button className='bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md' onClick={() => handleClearCart()} > Remove all</button>
+                </div>
+
+                
+                <div className="bg-primary-darktext  text-white py-2 px-4 rounded-md">
+                  <Link to="/"><span>← Continue to fill up</span></Link>
+                </div>
+                <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md ml-10'>Check out</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+  
 
 
 
-const Cart = () => {
-  const [items, setItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const addItem = (price) => {
-    setItems([...items, price]);
-    setTotalPrice(totalPrice + price);
-  };
-
-  return (
-    <div>
-      <h2 className="text-lg font-bold mb-4">Cart</h2>
-      {items.length === 0 ? (
-        <h1>Your cart is empty.</h1>
-      ) : (
-        <ul>
-          {items.map((item, index) => (
-            <li key={index}>${item.toFixed(2)}</li>
-          ))}
-          <li className="font-bold mt-2">Total: ${totalPrice.toFixed(2)}</li>
-        </ul>
-      )}
-    </div>
-  );
-};
-
-export default Cart;
+export default Cart
