@@ -1,24 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './cart.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart, clearCart, decreaseCart, removeFromCart } from './cartSlice'
-import './cart.css'
+
 
 function Cart() {
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
-    const handleRemoveFromCart = (cartItem) => {
-        dispatch(removeFromCart({ id: cartItem.idDrink }));
-    };
-
-    const handleDecreaseCart = (cartItem) => {
-        dispatch(decreaseCart(cartItem))
-    }
 
     const handleIncreaseCart = (cartItem) => {
         dispatch(addToCart(cartItem));
     }
 
+
+    const handleRemoveFromCart = (cartItem) => {
+        dispatch(removeFromCart({ id: cartItem.idDrink }));
+    };
+
+
+    const handleDecreaseCart = (cartItem) => {
+        dispatch(decreaseCart(cartItem))
+    }
+
+    
     const handleClearCart = () => {
         dispatch(clearCart());
     }
